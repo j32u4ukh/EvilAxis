@@ -17,11 +17,15 @@ public class CanvasManager : MonoBehaviour
     public SaveData sd;
 
     string path;
+    bool display;
+    float display_time;
 
     // Start is called before the first frame update
     void Start()
     {
         rotation_value = Vector3.zero;
+        display = false;
+        display_time = 0f;
 
         add.onClick.AddListener(() =>
         {
@@ -39,6 +43,8 @@ public class CanvasManager : MonoBehaviour
 
         save.onClick.AddListener(() =>
         {
+            display = true;
+
             switch (GameInfo.Version)
             {
                 case EVersion.Local:
@@ -76,7 +82,38 @@ public class CanvasManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (display)
+        {
+            display_time += Time.deltaTime;
+
+            if(display_time > 2.0f)
+            {
+                display = false;
+                display_time = 0f;
+            }
+        }
+    }
+
+    private void OnGUI()
+    {
+        if (display)
+        {
+            // 文字位置
+            GUI.skin.label.alignment = TextAnchor.MiddleCenter;
+
+            string label = "圖片已儲存";
+            float font_size = Mathf.Sqrt(Mathf.Sqrt(Screen.width * Screen.height));
+            float gui_x = Screen.width * 0.4f;
+            float gui_y = Screen.height * 0.2f;
+            float gui_width = font_size * label.Length;
+            float gui_height = font_size;
+
+            GUI.contentColor = Color.red;
+            // 文字大小
+            GUI.skin.label.fontSize = (int)font_size;
+            // 顯示位置與文字內容
+            GUI.Label(new Rect(gui_x, gui_y, gui_width, gui_height), label);
+        }
     }
 
     public void onSliderXValueChanged(float value)

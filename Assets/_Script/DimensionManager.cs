@@ -49,9 +49,6 @@ public class DimensionManager : MonoBehaviour {
     public GameObject XY_plane;
     public GameObject XZ_plane;
     public GameObject YZ_plane;
-    [SerializeField] bool XY;
-    [SerializeField] bool XZ;
-    [SerializeField] bool YZ;
     #endregion
 
     // Use this for initialization
@@ -160,9 +157,7 @@ public class DimensionManager : MonoBehaviour {
         };
         #endregion
 
-        XY_plane.SetActive(XY);
-        XZ_plane.SetActive(XZ);
-        YZ_plane.SetActive(YZ);
+
     }
 
     public Vector2 mouseVector2()

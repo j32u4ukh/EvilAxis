@@ -11,6 +11,7 @@ public class CanvasManager : MonoBehaviour
     public Button del;
     public Button save;
     public Button init;
+    public Button clear;
     public Transform sphere;
     Vector3 rotation_value;
     public SaveData sd;
@@ -60,6 +61,15 @@ public class CanvasManager : MonoBehaviour
             print("Initialize rotation angle.");
             sphere.rotation = Quaternion.identity;
 
+        });
+
+        clear.onClick.AddListener(()=> {
+            int i, child_number = sphere.childCount;
+
+            for(i = 0; i < child_number; i++)
+            {
+                Destroy(sphere.GetChild(i).gameObject);
+            }
         });
     }
 
